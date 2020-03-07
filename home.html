@@ -1,0 +1,42 @@
+{% extends 'layout.html' %}
+{% block body %}
+<p> this is home page</p>
+{% if session %}
+<center><p>welcome {{session['username']}}</p>
+<p>you've signed in as{{session['c_type']}}</p></center>
+		{% if session['c_type']=='buyer' %}
+			<p><a href="/products">click here</a>to look at products available for sale</p>
+			p><a href="/cart">click here</a>to look at your cart</p>
+		{% else %}
+			<center>
+				<form action ="/products" method='POST'>
+						<input type="text" name="name" placeholder="enter product name..."><br>
+						<input type="text" name="description" placeholder="describe your product..."><br>
+						<input type="text" name="price" placeholder="enter product price..."><br>
+						<input type="submit" value="Add product">
+	
+				</form>	
+			</center>
+			<p><a href="/products">click here</a>to look at products u have added to store  </p>
+		{% endif %}
+{%  else %}		
+<p>Login</p>
+<form action="/login" method="POST">
+	<input type="text" name="username" placeholder="enter usrname.."><br>
+	<input type="password" name="password" placeholder="enter password.."><br>
+	<input type="submit" value="Login">
+</form>	
+
+<p>Dont have an account? sign up</p>
+<form action="/signup" method="POST">
+	<input type="text" name="username" placeholder="enter username.."><br>
+	<input type="password" name="password1" placeholder="enter password.."><br>
+	<input type="password" name="password2" placeholder="re_nter username..">
+	<p>Customer Type</p><br>
+	<p>Buyer</p><input type="radio" name="type" value="buyer">
+	<p>Seller</p><input type="radio" name="type" value="seller">
+	<input type="submit" value="create account">
+</form>	
+{% endif %}
+
+{% endblock body %}
